@@ -12,8 +12,7 @@
 
         <!-- Scripts -->
         <link href="/css/app.css" rel="stylesheet">
-        <script defer src="/js/app.js"></script><link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css" rel="stylesheet">
+        <script defer src="/js/app.js"></script>
     </head>
     <body>
         <div class="font-sans text-gray-900 antialiased">
