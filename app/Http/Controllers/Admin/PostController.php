@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostRequest;
 use App\Http\Requests\StorePostRequest;
 use App\Models\Category;
 use App\Models\Post;
@@ -44,7 +45,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePostRequest $request)
+    public function store(PostRequest $request)
     {
 
         $post = Post::create($request->all());
@@ -83,7 +84,11 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', compact('post'));
+        $categories = Category::pluck('name', 'id');
+
+        $tags = Tag::all();
+
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -93,14 +98,29 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(PostRequest $request, Post $post)
     {
-        $request->validate([
-            'name' => 'required',
-            'slug' => "required|unique:posts,slug,$post->id",
-        ]);
-
         $post->update($request->all());
+
+        if ($request->hasFile('file')) {
+            $url = Storage::put('posts', $request->file('file'));
+
+            if ($post->image) {
+                Storage::delete($post->image->url);
+
+                $post->image()->update([
+                    'url' => $url,
+                ]);
+            } else {
+                $post->image()->create([
+                    'url' => $url,
+                ]);
+            }
+        }
+
+        if ($request->tags) {
+            $post->tags()->attach($request->tags);
+        }
 
         return redirect()->route('admin.posts.edit', compact('post'))->with('info', 'The post has been updated');
     }

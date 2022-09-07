@@ -13,12 +13,18 @@
             {{-- Contenido principal --}}
             <div class="lg:col-span-2">
 
-                <figure>
-                    @if ($post->image)  
-                        <img class="w-full h-80 object-cover object-center" src="{{ $post->image->url }}" alt="">
-                    @else   
-                        <img class="w-full h-80 object-cover object-center" src="https://cdn.pixabay.com/photo/2021/09/22/08/35/architecture-6646154_960_720.jpg" alt="">
-                    @endif
+                <figure> 
+                    <img class="w-full h-80 object-cover object-center" src=" 
+                        @if($post->image)
+                            @if(Storage::has($post->image->url))
+                                {{ Storage::url($post->image->url) }}
+                            @else
+                                {{ $post->image->url }}
+                            @endif
+                        @else 
+                            https://cdn.pixabay.com/photo/2021/09/22/08/35/architecture-6646154_960_720.jpg
+                        @endif
+                    " alt="">
                 </figure>
 
                 <div class="text-base text-gray-500 mt-4">
