@@ -11,6 +11,8 @@
         <div class="card-body">
             {!! Form::open(['route' => 'admin.posts.store', 'autocomplete' => 'off']) !!}
 
+                {!! Form::hidden('user_id', auth()->user()->id) !!}
+
                 <div class="form-group">
                     {!! Form::label('name', 'Name') !!}
                     {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Enter name of the post']) !!}
@@ -38,7 +40,7 @@
 
                     {!! Form::select('category_id', $categories, null, ['class' => 'form-control']) !!}
 
-                    @error('color')
+                    @error('category_id')
                         <span class="text-danger">
                             {{ $message }}
                         </span>
@@ -55,18 +57,37 @@
                             {{ $tag->name }}
                         </label>
                     @endforeach
+
+                    @error('tags')
+                        <br>
+                        <span class="text-danger">
+                            {{ $message }}
+                        </span>
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('extract', 'Extract') !!}
 
                     {!! Form::textarea('extract', null, ['class' => 'form-control']) !!}
+
+                    @error('extract')
+                        <span class="text-danger">
+                            {{ $message }}
+                        </span>
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('body', 'Post body') !!}
 
                     {!! Form::textarea('body', null, ['class' => 'form-control']) !!}
+
+                    @error('body')
+                        <span class="text-danger">
+                            {{ $message }}
+                        </span>
+                    @enderror
                 </div>
 
                 <div class="form-group">
@@ -83,6 +104,12 @@
                         {!! Form::radio('status', 2) !!}
                         Published
                     </label>
+
+                    @error('status')
+                        <span class="text-danger">
+                            {{ $message }}
+                        </span>
+                    @enderror
                 </div>
 
                 {!! Form::submit('Create post', ['class' => 'btn btn-primary']) !!}
