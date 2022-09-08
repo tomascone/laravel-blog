@@ -27,12 +27,10 @@ class PostRequest extends FormRequest
 
         $rules = [
             'name' => 'required',
-            'slug' => 'required|unique:posts',
+            'slug' => $post ? 'required|unique:posts,slug,' . $post->id : 'required|unique:posts',
             'status' => 'required|in:1,2',
             'file' => 'image',
         ];
-
-        $post ?? $rules['slug'] = 'required|unique:posts,slug,' . $post->id;
 
         if ($this->status == 2) {
             $rules = array_merge($rules, [
