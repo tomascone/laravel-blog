@@ -3,6 +3,11 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
+    @can('admin.tags.create')
+        <a class="btn btn-secondary btn-sm float-right" href="{{ route('admin.tags.create') }}">
+            Add tag
+        </a>
+    @endcan
     <h1>Tags List</h1>
 @stop
 
@@ -16,12 +21,6 @@
     @endif
 
     <div class="card">
-
-        <div class="card-header">
-            <a class="btn btn-secondary" href="{{ route('admin.tags.create') }}">
-                Add tag
-            </a>
-        </div>
 
         <div class="card-body">
             <table class="table table-striped">
@@ -49,18 +48,22 @@
                                 {{ $tag->name }}
                             </td>
                             <td width="10px">
-                                <a class="btn btn-primary btn-sm" href="{{ route('admin.tags.edit', $tag) }}">Edit</a>
+                                @can('admin.tags.edit')
+                                    <a class="btn btn-primary btn-sm" href="{{ route('admin.tags.edit', $tag) }}">Edit</a>
+                                @endcan
                             </td>
                             <td width="10px">
-                                <form method="POST" action="{{ route('admin.tags.destroy', $tag) }}">
-                                    @csrf
+                                @can('admin.tags.destroy')
+                                    <form method="POST" action="{{ route('admin.tags.destroy', $tag) }}">
+                                        @csrf
 
-                                    @method('DELETE')
+                                        @method('DELETE')
 
-                                    <button class="btn btn-danger btn-sm" type="submit">
-                                        Delete
-                                    </button>
-                                </form>
+                                        <button class="btn btn-danger btn-sm" type="submit">
+                                            Delete
+                                        </button>
+                                    </form>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach

@@ -320,19 +320,22 @@ return [
             'text'        => 'Users',
             'route'         => 'admin.users.index',
             'icon'        => 'fas fa-fw fa-users',
+            'can' => 'admin.users.index'
         ],
         ['header' => 'ADMIN'],
         [
             'text' => 'Categories',
             'route'  => 'admin.categories.index',
             'icon' => 'fab fa-fw fa-buffer',
-            'active' => ['admin/categories*']
+            'active' => ['admin/categories*'],
+            'can' => 'admin.categories.index'
         ],
         [
             'text' => 'Tags',
             'route'  => 'admin.tags.index',
             'icon' => 'far fa-fw fa-bookmark',
-            'active' => ['admin/tags*']
+            'active' => ['admin/tags*'],
+            'can' => 'admin.tags.index'
         ],
         ['header' => 'BLOG OPTIONS'],
         [
