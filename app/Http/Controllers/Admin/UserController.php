@@ -13,7 +13,6 @@ class UserController extends Controller
     {
         $this->middleware('can:admin.users.index')->only('index');
         $this->middleware('can:admin.users.edit')->only('edit');
-        $this->middleware('can:admin.users.update')->only('update');
     }
 
     /**

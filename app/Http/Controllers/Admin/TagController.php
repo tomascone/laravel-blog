@@ -13,7 +13,6 @@ class TagController extends Controller
         $this->middleware('can:admin.tags.index')->only('index');
         $this->middleware('can:admin.tags.create')->only('create');
         $this->middleware('can:admin.tags.edit')->only('edit');
-        $this->middleware('can:admin.tags.update')->only('update');
         $this->middleware('can:admin.tags.destroy')->only('destroy');
     }
 

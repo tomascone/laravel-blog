@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
-use App\Http\Requests\StorePostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
@@ -18,7 +17,6 @@ class PostController extends Controller
         $this->middleware('can:admin.posts.index')->only('index');
         $this->middleware('can:admin.posts.create')->only('create');
         $this->middleware('can:admin.posts.edit')->only('edit');
-        $this->middleware('can:admin.posts.update')->only('update');
         $this->middleware('can:admin.posts.destroy')->only('destroy');
     }
     /**
